@@ -1,8 +1,21 @@
 require("types")
+
 module Args
+
 using ArgParse
 using Types
+using Docile
 
+@docstrings
+
+@doc """
+Define a global arguments
+
+__args__:
+  - *s::`ArgParseSettings`*: Object to store the allowed arguments and options.
+
+__returns__: `Nothing`
+""" ->
 function add_general_args(s::ArgParseSettings)
   @add_arg_table s begin
     "new"
@@ -24,6 +37,15 @@ function add_general_args(s::ArgParseSettings)
   end
 end
 
+
+@doc """
+Specify the arguments to scaffold a new project or override an existing.
+
+__args__:
+  - *s::`ArgParseSettings`*: Object to store the allowed arguments and options.
+
+__returns__: `Nothing`
+""" ->
 function add_new_args(s::ArgParseSettings)
   @add_arg_table s begin
     "--no-extra", "-n"
@@ -39,6 +61,16 @@ function add_new_args(s::ArgParseSettings)
   end
 end
 
+
+@doc """
+Specify the arguments to create a new instance of Morsel to serve the static
+site.
+
+__args__:
+  - *s::`ArgParseSettings`*: Object to store the allowed arguments and options.
+
+returns: Nothing
+""" ->
 function add_server_args(s::ArgParseSettings)
     @add_arg_table s begin
       "--port", "-p"
@@ -52,6 +84,13 @@ function add_server_args(s::ArgParseSettings)
   end
 end
 
+@doc """
+Build the parser for general and subcommands configuration.
+
+__args__: `Nothing`
+
+__returns__: `Nothing`
+""" ->
 function parse_cli()
   s = ArgParseSettings("Julia static site generator",
                      commands_are_required = true,
