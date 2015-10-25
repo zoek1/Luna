@@ -3,7 +3,7 @@
 require("types")
 require("dispatch")
 require("args")
-#require("config")
+require("config")
 
 using Lumberjack
 using Types
@@ -33,6 +33,7 @@ function main()
   end
 
   #Collect files and metadata
+  context = Config.create_context(args, config)
 
   #Apply configurations
 
